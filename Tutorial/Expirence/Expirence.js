@@ -34,7 +34,7 @@ export default class Expirence
             this.update();
         });
 
-        this.time.on("resize", ()=> {
+        this.sizes.on("resize", ()=> {
             this.resize();
         });
     }

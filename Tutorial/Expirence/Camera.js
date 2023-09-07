@@ -17,16 +17,17 @@ export default class Camera{
 
     createPerspectiveCamera()
     {
-        this.presepectiveCamera = new THREE.PerspectiveCamera(
+        this.perspectiveCamera = new THREE.PerspectiveCamera(
             35, 
             this.sizes.aspect,
             0.1, 
             1000
         );
-        this.scene.add(this.presepectiveCamera);
-        this.presepectiveCamera.position.x = 29;
-        this.presepectiveCamera.position.y = 14;
-        this.presepectiveCamera.position.z = 12;
+        console.log(this.perspectiveCamera.aspect);
+        this.scene.add(this.perspectiveCamera);
+        this.perspectiveCamera.position.x = 29;
+        this.perspectiveCamera.position.y = 14;
+        this.perspectiveCamera.position.z = 12;
     }
 
     createOrthographicCamera()
@@ -45,48 +46,51 @@ export default class Camera{
         const size = 20;
         const divisions = 20;
 
-        const gridHelper = new THREE.GridHelper(size, divisions);
-        this.scene.add(gridHelper);
+        //const gridHelper = new THREE.GridHelper(size, divisions);
+        //this.scene.add(gridHelper);
 
         const axesHelper = new THREE.AxesHelper(10);
         this.scene.add(axesHelper);
 
         this.scene.add(this.orthographicCamera);
 
-        this.helper = new THREE.CameraHelper(this.orthographicCamera);
-        this.scene.add(this.helper);
+        //this.helper = new THREE.CameraHelper(this.orthographicCamera);
+        //this.scene.add(this.helper);
+
+        this.orthographicCamera.position.y = 6.4;
+        this.orthographicCamera.position.z = 10;
+        this.orthographicCamera.rotation.x = -Math.PI / 6;
     }
 
     setOrbitControls()
     {
-        this.controls = new OrbitControls(this.presepectiveCamera, this.canvas);
+        this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
         this.controls.enableDamping = true;
-        this.controls.enableZoom = true;
+        this.controls.enableZoom = false;
     }
 
     resize() {
-        // Updating Perspective Camera on Resize
-        this.perspectiveCamera.aspect = this.sizes.aspect;
-        this.perspectiveCamera.updateProjectionMatrix();
-
-        // Updating Orthographic Camera on Resize
-        this.orthographicCamera.left =
-            (-this.sizes.aspect * this.sizes.frustrum) / 2;
-        this.orthographicCamera.right =
-            (this.sizes.aspect * this.sizes.frustrum) / 2;
-        this.orthographicCamera.top = this.sizes.frustrum / 2;
-        this.orthographicCamera.bottom = -this.sizes.frustrum / 2;
-        this.orthographicCamera.updateProjectionMatrix();
+         // Updating Perspective Camera on Resize
+         console.log(this.perspectiveCamera.aspect);
+         this.perspectiveCamera.aspect = this.sizes.aspect;
+         this.perspectiveCamera.updateProjectionMatrix();
+ 
+         // Updating Orthographic Camera on Resize
+         this.orthographicCamera.left =
+             (-this.sizes.aspect * this.sizes.frustrum) / 2;
+         this.orthographicCamera.right =
+             (this.sizes.aspect * this.sizes.frustrum) / 2;
+         this.orthographicCamera.top = this.sizes.frustrum / 2;
+         this.orthographicCamera.bottom = -this.sizes.frustrum / 2;
+         this.orthographicCamera.updateProjectionMatrix();
     }
 
     update()
     {
         this.controls.update();
 
-        this.helper.updateProjectionMatrix = true;
-        this.helper.update();
-        this.helper.update();
-        this.helper.position.copy(this.orthographicCamera.position);
-        this.helper.rotation.copy(this.orthographicCamera.rotation);
+        //this.helper.updateProjectionMatrix = true;
+        //this.helper.update();
+        //this.ahelper.rotation.copy(this.orthographicCamera.rotation);
     }
 }

@@ -8,7 +8,7 @@ export default class Renderer{
         this.scene = this.expirence.scene;
         this.canvas = this.expirence.canvas;
         this.camera = this.expirence.camera;
-        //console.log(this.camera, this.camera.presepectiveCamera);
+        //console.log(this.camera, this.camera.perspectiveCamera);
 
         this.setRenderer();
     }
@@ -31,11 +31,11 @@ export default class Renderer{
     resize()
     {
         this.renderer.setSize(this.sizes.width, this.sizes.height);
-        this.renderer.setPixelRatio(this.sizes.pixelRatio);
+        this.renderer.setPixelRatio(this.sizes.pixelRatio); 
     }
 
     update()
     {
-        this.renderer.render(this.scene, this.camera.presepectiveCamera);
+        this.renderer.render(this.scene, this.camera.orthographicCamera);
     }
 }
